@@ -7,7 +7,7 @@ This repository contains the sample code and data link for xCodeEval [paper](htt
 # Data Download
 
 ```
-GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLPsg/xCodeEval
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval
 cd xCodeEval
 git lfs pull
 ```
