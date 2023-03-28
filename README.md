@@ -1,6 +1,8 @@
 # xCodeEval
 [xCodeEval: A Large Scale Multilingual Multitask Benchmark for Code Understanding, Generation, Translation and Retrieval](https://arxiv.org/abs/2303.03004)
 
+We introduce **xCodeEval**, the largest executable multilingual multitask benchmark to date consisting of $25$M document-level coding examples from about $7.5$K unique problems covering up to $17$ programming languages with execution-level parallelism. It features a total of seven tasks involving code understanding, generation, translation and retrieval, and it employs an execution-based evaluation. We develop a test-case based multilingual code execution engine, [**ExecEval**](https://github.com/ntunlp/ExecEval) that supports all the programming languages in **xCodeEval**. We also propose a novel data splitting and a data selection schema for balancing data distributions over multiple attributes based on geometric mean and graph-theoretic principle. 
+
 This repository contains the sample code and data link for xCodeEval [paper](https://arxiv.org/abs/2303.03004).
 
 
@@ -11,222 +13,16 @@ GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLPsg/xCodeE
 cd xCodeEval
 git lfs pull
 ```
-The tree of the data directory is following. It's a total of `124 GB` data.
-```
-xCodeEval
-|── problem_descriptions.jsonl
-|── unittest_db.json
-├── apr
-│   ├── test
-│   │   ├── C#.jsonl
-│   │   ├── C++.jsonl
-│   │   ├── C.jsonl
-│   │   ├── Go.jsonl
-│   │   ├── Java.jsonl
-│   │   ├── Javascript.jsonl
-│   │   ├── Kotlin.jsonl
-│   │   ├── PHP.jsonl
-│   │   ├── Python.jsonl
-│   │   ├── Ruby.jsonl
-│   │   └── Rust.jsonl
-│   ├── train.jsonl
-│   └── validation
-│       ├── C#.jsonl
-│       ├── C++.jsonl
-│       ├── C.jsonl
-│       ├── Go.jsonl
-│       ├── Java.jsonl
-│       ├── Javascript.jsonl
-│       ├── Kotlin.jsonl
-│       ├── PHP.jsonl
-│       ├── Python.jsonl
-│       ├── Ruby.jsonl
-│       └── Rust.jsonl
-├── code_compilation
-│   ├── test
-│   ├── train.jsonl
-│   └── validation
-├── code-translation
-│   ├── test
-│   │   ├── C#.jsonl
-│   │   ├── C++.jsonl
-│   │   ├── C.jsonl
-│   │   ├── Go.jsonl
-│   │   ├── Java.jsonl
-│   │   ├── Javascript.jsonl
-│   │   ├── Kotlin.jsonl
-│   │   ├── PHP.jsonl
-│   │   ├── Python.jsonl
-│   │   ├── Ruby.jsonl
-│   │   └── Rust.jsonl
-│   ├── train.jsonl
-│   └── validation
-│       ├── C#.jsonl
-│       ├── C++.jsonl
-│       ├── C.jsonl
-│       ├── Go.jsonl
-│       ├── Java.jsonl
-│       ├── Javascript.jsonl
-│       ├── Kotlin.jsonl
-│       ├── PHP.jsonl
-│       ├── Python.jsonl
-│       ├── Ruby.jsonl
-│       └── Rust.jsonl
-├── program_synthesis
-│   ├── test
-│   │   └── prog_syn_test.jsonl
-│   ├── train.jsonl
-│   └── validation
-│       └── prog_syn_val.jsonl
-├── retrieval
-│   ├── C#_code_code_dev_file.jsonl
-│   ├── C++_code_code_dev_file.jsonl
-│   ├── C_code_code_dev_file.jsonl
-│   ├── C#_code_code_test_file.jsonl
-│   ├── C++_code_code_test_file.jsonl
-│   ├── C_code_code_test_file.jsonl
-│   ├── C#_code_code_train_file.jsonl
-│   ├── C++_code_code_train_file.jsonl
-│   ├── C_code_code_train_file.jsonl
-│   ├── C#_code_retrieval_corpus.jsonl
-│   ├── C++_code_retrieval_corpus.jsonl
-│   ├── C_code_retrieval_corpus.jsonl
-│   ├── C#_nl_code_dev_file.jsonl
-│   ├── C++_nl_code_dev_file.jsonl
-│   ├── C_nl_code_dev_file.jsonl
-│   ├── C#_nl_code_test_file.jsonl
-│   ├── C++_nl_code_test_file.jsonl
-│   ├── C_nl_code_test_file.jsonl
-│   ├── C#_nl_code_train_file.jsonl
-│   ├── C++_nl_code_train_file.jsonl
-│   ├── C_nl_code_train_file.jsonl
-│   ├── D_code_code_dev_file.jsonl
-│   ├── D_code_code_test_file.jsonl
-│   ├── D_code_code_train_file.jsonl
-│   ├── D_code_retrieval_corpus.jsonl
-│   ├── D_nl_code_dev_file.jsonl
-│   ├── D_nl_code_test_file.jsonl
-│   ├── D_nl_code_train_file.jsonl
-│   ├── Go_code_code_dev_file.jsonl
-│   ├── Go_code_code_test_file.jsonl
-│   ├── Go_code_code_train_file.jsonl
-│   ├── Go_code_retrieval_corpus.jsonl
-│   ├── Go_nl_code_dev_file.jsonl
-│   ├── Go_nl_code_test_file.jsonl
-│   ├── Go_nl_code_train_file.jsonl
-│   ├── Haskell_code_code_dev_file.jsonl
-│   ├── Haskell_code_code_test_file.jsonl
-│   ├── Haskell_code_code_train_file.jsonl
-│   ├── Haskell_code_retrieval_corpus.jsonl
-│   ├── Haskell_nl_code_dev_file.jsonl
-│   ├── Haskell_nl_code_test_file.jsonl
-│   ├── Haskell_nl_code_train_file.jsonl
-│   ├── Java_code_code_dev_file.jsonl
-│   ├── Java_code_code_test_file.jsonl
-│   ├── Java_code_code_train_file.jsonl
-│   ├── Java_code_retrieval_corpus.jsonl
-│   ├── Java_nl_code_dev_file.jsonl
-│   ├── Java_nl_code_test_file.jsonl
-│   ├── Java_nl_code_train_file.jsonl
-│   ├── Javascript_code_code_dev_file.jsonl
-│   ├── Javascript_code_code_test_file.jsonl
-│   ├── Javascript_code_code_train_file.jsonl
-│   ├── Javascript_code_retrieval_corpus.jsonl
-│   ├── Javascript_nl_code_dev_file.jsonl
-│   ├── Javascript_nl_code_test_file.jsonl
-│   ├── Javascript_nl_code_train_file.jsonl
-│   ├── Kotlin_code_code_dev_file.jsonl
-│   ├── Kotlin_code_code_test_file.jsonl
-│   ├── Kotlin_code_code_train_file.jsonl
-│   ├── Kotlin_code_retrieval_corpus.jsonl
-│   ├── Kotlin_nl_code_dev_file.jsonl
-│   ├── Kotlin_nl_code_test_file.jsonl
-│   ├── Kotlin_nl_code_train_file.jsonl
-│   ├── Ocaml_code_code_dev_file.jsonl
-│   ├── Ocaml_code_code_test_file.jsonl
-│   ├── Ocaml_code_code_train_file.jsonl
-│   ├── Ocaml_code_retrieval_corpus.jsonl
-│   ├── Ocaml_nl_code_dev_file.jsonl
-│   ├── Ocaml_nl_code_test_file.jsonl
-│   ├── Ocaml_nl_code_train_file.jsonl
-│   ├── Pascal_code_code_dev_file.jsonl
-│   ├── Pascal_code_code_test_file.jsonl
-│   ├── Pascal_code_code_train_file.jsonl
-│   ├── Pascal_code_retrieval_corpus.jsonl
-│   ├── Pascal_nl_code_dev_file.jsonl
-│   ├── Pascal_nl_code_test_file.jsonl
-│   ├── Pascal_nl_code_train_file.jsonl
-│   ├── Perl_code_code_dev_file.jsonl
-│   ├── Perl_code_code_test_file.jsonl
-│   ├── Perl_code_code_train_file.jsonl
-│   ├── Perl_code_retrieval_corpus.jsonl
-│   ├── Perl_nl_code_dev_file.jsonl
-│   ├── Perl_nl_code_test_file.jsonl
-│   ├── Perl_nl_code_train_file.jsonl
-│   ├── PHP_code_code_dev_file.jsonl
-│   ├── PHP_code_code_test_file.jsonl
-│   ├── PHP_code_code_train_file.jsonl
-│   ├── PHP_code_retrieval_corpus.jsonl
-│   ├── PHP_nl_code_dev_file.jsonl
-│   ├── PHP_nl_code_test_file.jsonl
-│   ├── PHP_nl_code_train_file.jsonl
-│   ├── Python_code_code_dev_file.jsonl
-│   ├── Python_code_code_test_file.jsonl
-│   ├── Python_code_code_train_file.jsonl
-│   ├── Python_code_retrieval_corpus.jsonl
-│   ├── Python_nl_code_dev_file.jsonl
-│   ├── Python_nl_code_test_file.jsonl
-│   ├── Python_nl_code_train_file.jsonl
-│   ├── Ruby_code_code_dev_file.jsonl
-│   ├── Ruby_code_code_test_file.jsonl
-│   ├── Ruby_code_code_train_file.jsonl
-│   ├── Ruby_code_retrieval_corpus.jsonl
-│   ├── Ruby_nl_code_dev_file.jsonl
-│   ├── Ruby_nl_code_test_file.jsonl
-│   ├── Ruby_nl_code_train_file.jsonl
-│   ├── Rust_code_code_dev_file.jsonl
-│   ├── Rust_code_code_test_file.jsonl
-│   ├── Rust_code_code_train_file.jsonl
-│   ├── Rust_code_retrieval_corpus.jsonl
-│   ├── Rust_nl_code_dev_file.jsonl
-│   ├── Rust_nl_code_test_file.jsonl
-│   ├── Rust_nl_code_train_file.jsonl
-│   ├── Scala_code_code_dev_file.jsonl
-│   ├── Scala_code_code_test_file.jsonl
-│   ├── Scala_code_code_train_file.jsonl
-│   ├── Scala_code_retrieval_corpus.jsonl
-│   ├── Scala_nl_code_dev_file.jsonl
-│   ├── Scala_nl_code_test_file.jsonl
-│   └── Scala_nl_code_train_file.jsonl
-└── tag_classification
-    ├── test
-    │   ├── C#.jsonl
-    │   ├── C++.jsonl
-    │   ├── C.jsonl
-    │   ├── Go.jsonl
-    │   ├── Java.jsonl
-    │   ├── Javascript.jsonl
-    │   ├── Kotlin.jsonl
-    │   ├── PHP.jsonl
-    │   ├── Python.jsonl
-    │   ├── Ruby.jsonl
-    │   └── Rust.jsonl
-    ├── train.jsonl
-    └── validation
-        ├── C#.jsonl
-        ├── C++.jsonl
-        ├── C.jsonl
-        ├── Go.jsonl
-        ├── Java.jsonl
-        ├── Javascript.jsonl
-        ├── Kotlin.jsonl
-        ├── PHP.jsonl
-        ├── Python.jsonl
-        ├── Ruby.jsonl
-        └── Rust.jsonl
-        
-        
-```
+
+We propose 7 Tasks.
+
+1. [Tag Classification](./tag_classification.md)
+2. [Code Compilation](./code_compilation.md)
+3. [Program Synthesis](./program_synthesis.md)
+4. [Code Translation](./code_translation.md)
+5. [Automatic Program Repair](./apr.md)
+6. [Code-Code Retrieval](./retrieval.md)
+7. [NL-Code Retrieval](./retrieval.md)
 
 # Citation
 
