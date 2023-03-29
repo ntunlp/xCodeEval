@@ -5,6 +5,7 @@ We introduce **xCodeEval**, the largest executable multilingual multitask benchm
 
 This repository contains the sample code and data link for xCodeEval [paper](https://arxiv.org/abs/2303.03004).
 
+NOTE: DUE TO THE DATA BEING EXTREMELY LARGE SIZE IN TOTAL (124GB) and OUR DAILY UPLOAD LIMIT IN UNIVERSITY SERVERS, IT IS TAKING SOME TIME TO UPLOAD THE FULL DATA. PLEASE STAY WITH US FEW MORE DAYS FOR THE FULL DATA.
 
 # Data Download
 
