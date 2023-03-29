@@ -10,7 +10,7 @@ NOTE: DUE TO THE DATA BEING EXTREMELY LARGE SIZE IN TOTAL (124GB) and OUR DAILY 
 # Data Download
 
 ```
-GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLPsg/xCodeEval
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval
 cd xCodeEval
 git lfs pull
 ```
