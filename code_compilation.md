@@ -1,6 +1,6 @@
 # Code Compilation Task
 
-To download the program synthesis data,
+To download the code_compilation data,
 
 ```
 GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval

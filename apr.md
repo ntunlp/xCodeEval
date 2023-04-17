@@ -1,34 +1,13 @@
 # Automatic Program Repair Task
 
-## Tree
+To download the automatic program repair data,
 
 ```
-apr
-├── test
-│   ├── C#.jsonl
-│   ├── C++.jsonl
-│   ├── C.jsonl
-│   ├── Go.jsonl
-│   ├── Java.jsonl
-│   ├── Javascript.jsonl
-│   ├── Kotlin.jsonl
-│   ├── PHP.jsonl
-│   ├── Python.jsonl
-│   ├── Ruby.jsonl
-│   └── Rust.jsonl
-├── train.jsonl
-└── validation
-    ├── C#.jsonl
-    ├── C++.jsonl
-    ├── C.jsonl
-    ├── Go.jsonl
-    ├── Java.jsonl
-    ├── Javascript.jsonl
-    ├── Kotlin.jsonl
-    ├── PHP.jsonl
-    ├── Python.jsonl
-    ├── Ruby.jsonl
-    └── Rust.jsonl
+GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval
+cd xCodeEval
+git lfs pull --include "program_synthesis/*"
+git lfs pull --include "problem_descriptions.jsonl"
+git lfs pull --include "unittest_db.json"
 ```
 
 ## A Sample from train split
@@ -88,6 +67,25 @@ apr
 
 ## Key Definitions
 
+1. `similarity_score`: A similarity score between `bug_source_code` and `fix_source_code` given by difflib.
+2. `equal_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+3. `replace_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+4. `delete_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+5. `insert_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+6. `fix_ops_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+7. `bug_source_code`: Buggy code.
+8. `fix_source_code`: A potential fix of the buggy code that passed all the unit tests.
+9. `lang`: Runtime/Compiler version of the `source_code`.
+10. `fix_code_uid`: A unique ID for the fix code. It is not important for model training. If you find any issue with the sample, you can report it to us mentioning the `fix_code_uid`.
+11. `bug_code_uid`: A unique ID for the buggy code. It is not important for model training. If you find any issue with the sample, you can report it to us mentioning the `bug_code_uid`.
+12. `src_uid`: A specific identifier that shows which problem the code is associated with. This identifier is **important** for the training of the model. The problem referred to by the `src_uid` provides a natural description of the problem that the code successfully solved. Refer to [Structure of `problem_descriptions.jsonl`](./README.md#structure-of-problem_descriptionsjsonl)
+13. `apr_id`: A unique ID for the apr sample. It is not important for model training. If you find any issue with the sample, you can report it to us mentioning the `apr_id`.
+14. `difficulty`: Difficulty rating of the problem indicated by `src_uid`. The higher the harder.  
+15. `tags`: List of potential algorithmic techniques required to write the program.
+16. `bug_exec_outcome`: A pre-run execution outcome of `bug_source_code`. Follow [Section 4.1](https://arxiv.org/pdf/2303.03004.pdf) to know the potential list of outcomes. The `exec_outcome` flags in the training data comes from a pre-run environmeent. However, training data doesn't  includes unit-test to avoid potential hacks. We provide unit test for only dev and test data.   
+17. `fix_exec_outcome`: A pre-run execution outcome of `fix_source_code`. Follow [Section 4.1](https://arxiv.org/pdf/2303.03004.pdf) to know the potential list of outcomes. The `exec_outcome` flags in the training data comes from a pre-run environmeent. However, training data doesn't  includes unit-test to avoid potential hacks. We provide unit test for only dev and test data.   
+18. `potential_dominant_fix_op`: A potential fix op recommended by difflib.
+19. `lang_cluster`: A generic programming language name the value of `lang` belongs to.
 
 ## MD5 hash of the data
 
@@ -98,4 +96,132 @@ cd xCodeEval/
 tar c apr | md5sum
 ```
 
-Output should match, `044963b52e550292a4dee5e4c63e3fce`.
+Output should match, `293fd4712456a981afd1a8db1ec93d5e`.
+
+
+## Tree
+
+3 directories, 116 files
+
+```
+.
+├── test
+│   ├── C#.jsonl
+│   ├── C++.jsonl
+│   ├── C.jsonl
+│   ├── Go.jsonl
+│   ├── Java.jsonl
+│   ├── Javascript.jsonl
+│   ├── Kotlin.jsonl
+│   ├── PHP.jsonl
+│   ├── Python.jsonl
+│   ├── Ruby.jsonl
+│   └── Rust.jsonl
+├── train
+│   ├── train_000.jsonl
+│   ├── train_001.jsonl
+│   ├── train_002.jsonl
+│   ├── train_003.jsonl
+│   ├── train_004.jsonl
+│   ├── train_005.jsonl
+│   ├── train_006.jsonl
+│   ├── train_007.jsonl
+│   ├── train_008.jsonl
+│   ├── train_009.jsonl
+│   ├── train_010.jsonl
+│   ├── train_011.jsonl
+│   ├── train_012.jsonl
+│   ├── train_013.jsonl
+│   ├── train_014.jsonl
+│   ├── train_015.jsonl
+│   ├── train_016.jsonl
+│   ├── train_017.jsonl
+│   ├── train_018.jsonl
+│   ├── train_019.jsonl
+│   ├── train_020.jsonl
+│   ├── train_021.jsonl
+│   ├── train_022.jsonl
+│   ├── train_023.jsonl
+│   ├── train_024.jsonl
+│   ├── train_025.jsonl
+│   ├── train_026.jsonl
+│   ├── train_027.jsonl
+│   ├── train_028.jsonl
+│   ├── train_029.jsonl
+│   ├── train_030.jsonl
+│   ├── train_031.jsonl
+│   ├── train_032.jsonl
+│   ├── train_033.jsonl
+│   ├── train_034.jsonl
+│   ├── train_035.jsonl
+│   ├── train_036.jsonl
+│   ├── train_037.jsonl
+│   ├── train_038.jsonl
+│   ├── train_039.jsonl
+│   ├── train_040.jsonl
+│   ├── train_041.jsonl
+│   ├── train_042.jsonl
+│   ├── train_043.jsonl
+│   ├── train_044.jsonl
+│   ├── train_045.jsonl
+│   ├── train_046.jsonl
+│   ├── train_047.jsonl
+│   ├── train_048.jsonl
+│   ├── train_049.jsonl
+│   ├── train_050.jsonl
+│   ├── train_051.jsonl
+│   ├── train_052.jsonl
+│   ├── train_053.jsonl
+│   ├── train_054.jsonl
+│   ├── train_055.jsonl
+│   ├── train_056.jsonl
+│   ├── train_057.jsonl
+│   ├── train_058.jsonl
+│   ├── train_059.jsonl
+│   ├── train_060.jsonl
+│   ├── train_061.jsonl
+│   ├── train_062.jsonl
+│   ├── train_063.jsonl
+│   ├── train_064.jsonl
+│   ├── train_065.jsonl
+│   ├── train_066.jsonl
+│   ├── train_067.jsonl
+│   ├── train_068.jsonl
+│   ├── train_069.jsonl
+│   ├── train_070.jsonl
+│   ├── train_071.jsonl
+│   ├── train_072.jsonl
+│   ├── train_073.jsonl
+│   ├── train_074.jsonl
+│   ├── train_075.jsonl
+│   ├── train_076.jsonl
+│   ├── train_077.jsonl
+│   ├── train_078.jsonl
+│   ├── train_079.jsonl
+│   ├── train_080.jsonl
+│   ├── train_081.jsonl
+│   ├── train_082.jsonl
+│   ├── train_083.jsonl
+│   ├── train_084.jsonl
+│   ├── train_085.jsonl
+│   ├── train_086.jsonl
+│   ├── train_087.jsonl
+│   ├── train_088.jsonl
+│   ├── train_089.jsonl
+│   ├── train_090.jsonl
+│   ├── train_091.jsonl
+│   ├── train_092.jsonl
+│   └── train_093.jsonl
+└── validation
+    ├── C#.jsonl
+    ├── C++.jsonl
+    ├── C.jsonl
+    ├── Go.jsonl
+    ├── Java.jsonl
+    ├── Javascript.jsonl
+    ├── Kotlin.jsonl
+    ├── PHP.jsonl
+    ├── Python.jsonl
+    ├── Ruby.jsonl
+    └── Rust.jsonl
+```
