@@ -82,7 +82,7 @@ Run the following,
 
 ```
 cd xCodeEval/
-tar c apr | md5sum
+tar c program_synthesis | md5sum
 ```
 
 Output should match, `dcd0cb286721d78a0d40bfa20712bc67`.
