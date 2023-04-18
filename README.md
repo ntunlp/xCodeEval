@@ -49,7 +49,7 @@ We have two data files that are required for multiple tasks.
 1. `problem_descriptions.jsonl`
 2. `unittest_db.json`
 
-You can find these two files in the root directory of the [main](https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval/tree/main) branch of huggingface dataset repository. To avoid data redundency we didn't include these data with relevant task, rather we add a unique id `src_uid` to retrieve these data. 
+You can find these two files in the root directory of the [main](https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval/tree/main) branch of huggingface dataset repository. To avoid data redundancy we didn't include these data with the relevant tasks, rather we add a unique id `src_uid` to retrieve these data. 
 
 ## Structure of `problem_descriptions.jsonl`
 
@@ -84,19 +84,19 @@ A sample,
 ### Key Definitions
 
 1. `description`: Problem description in textual format, math operations are written in latex.
-2. `input_from`: How the program should take unit test.
+2. `input_from`: How the program should take the unit test.
 3. `output_to`: Where the program should output the result of the unit test.
 4. `time_limit`: Time limit to solve the problem. 
 5. `memory_limit`: Memory limit to solve the problem.
-6. `input_spec`: How and what order the input will be given to the program. It also include the data range, types and sizes.
-7. `output_spec`: How the outputs should be printed. Most of the time the unit test results are matched with *exact string match* or *floating point comparison* with a precision boundary. 
+6. `input_spec`: How and in what order the input will be given to the program? It also includes the date range, types, and sizes.
+7. `output_spec`: How the outputs should be printed. Most of the time the unit test results are matched with an *exact string match* or *floating point comparison* with a precision boundary. 
 8. `sample_inputs`: A sample input for the code that is expected to solve the problem described in `description`.
 9. `sample_outputs`: The expected output for the `sample_input` that is expected to solve the problem described in `description`.
 10. `notes`: Explanation of `sample_inputs` & `sample_outputs`.
 11. `tags`: The problem categories.
-12. `src_uid`: The unique id of the problem. This ID is referred in the task data samples instead of putting all these information.
-13. `difficulty`: How difficult is it to solve the problem for a human (annotated by an expert human). 
-14. `created_at`: The unix timestamp at when the problem was released. Use `datetime` lib in python to parse it to a human readable format.  
+12. `src_uid`: The unique id of the problem. This ID is referred to in the task data samples instead of putting all this information.
+13. `difficulty`: How difficult is it to solve the problem for a human (annotated by an expert human)? 
+14. `created_at`: The Unix timestamp when the problem was released. Use `datetime` lib in Python to parse it to a human-readable format.  
 
 ## Structure of `unittest_db.json`
 
@@ -126,8 +126,8 @@ unittest_db = {
 ### Key Definitions
 
 1. `unittest_db.json` dict keys i.e., `db884d679d9cfb1dc4bc511f83beedda` are the `src_uid` from `problem_descriptions.jsonl`.
-2. `input` : Input of the unit test.
-3. `output` : List of expected outputs for the unit test. 
+2. `input`: Input of the unit test.
+3. `output`: List of expected outputs for the unit test. 
 
 # Citation
 
@@ -141,4 +141,3 @@ unittest_db = {
       primaryClass={cs.CL}
 }
 ```
-
