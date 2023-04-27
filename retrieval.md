@@ -74,7 +74,7 @@ cd xCodeEval/
 tar c retrieval_code_code | md5sum
 ```
 
-Output should match, `b9051bab7c85e7cb5798eced89e51702`.
+Output should match, `4ba132651e4c5c19003a54c35f3b228a`.
 
 
 ## Tree
