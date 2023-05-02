@@ -1,4 +1,4 @@
-# Automatic Program Repair Task
+# Program Synthesis Task
 
 To download the program synthesis data,
 
