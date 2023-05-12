@@ -73,8 +73,6 @@ git lfs pull --include "unittest_db.json"
 6. `code_uid`: A unique ID for the sample. It is not important for model training. If you find any issue with the sample, you can report it to us mentioning the `code_uid`.
 7. `difficulty`: Difficulty rating of the problem indicated by `src_uid`. The higher the harder.  
 8. `exec_outcome`: Execution outcome status. Follow [Section 4.1](https://arxiv.org/pdf/2303.03004.pdf) to know the potential list of outcomes. The `exec_outcome` flags in the training data comes from a pre-run environmeent. However, training data doesn't  includes unit-test to avoid potential hacks. We provide unit test for only dev and test data.   
-9. `sample_inputs`: A sample input for the code that is expected to solve the problem described in `description`.
-10. `sample_outputs`: The expected output for the `sample_input` that is expected to solve the problem described in `description`.
 
 ## MD5 hash of the data
 
