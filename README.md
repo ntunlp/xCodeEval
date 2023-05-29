@@ -1,6 +1,8 @@
 # xCodeEval
 [xCodeEval: A Large Scale Multilingual Multitask Benchmark for Code Understanding, Generation, Translation and Retrieval](https://arxiv.org/abs/2303.03004)
 
+## UPDATE: Repository WIP, data description may not match at this time. However [data at huggingface](https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval) is up to date.  
+
 We introduce **xCodeEval**, the largest executable multilingual multitask benchmark to date consisting of 25 M document-level coding examples from about 7.5K unique problems covering up to 17 programming languages with execution-level parallelism. It features a total of seven tasks involving code understanding, generation, translation and retrieval, and it employs an execution-based evaluation. We develop a test-case based multilingual code execution engine, [**ExecEval**](https://github.com/ntunlp/ExecEval) that supports all the programming languages in **xCodeEval**. We also propose a novel data splitting and a data selection schema for balancing data distributions over multiple attributes based on geometric mean and graph-theoretic principle. 
 
 This repository contains the sample code and data link for xCodeEval [paper](https://arxiv.org/abs/2303.03004).
