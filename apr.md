@@ -1,16 +1,47 @@
-# Automatic Program Repair Task
+# Automatic Program Repair (APR) Task
+
+## Download data using huggingface `load_dataset()`
+
+```
+>>> import datasets
+>>> apr_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "apr")
+>>> print(apr_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        num_rows: 4672070
+    })
+    validation: Dataset({
+        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        num_rows: 5068
+    })
+    test: Dataset({
+        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        num_rows: 17699
+    })
+})
+```
+
+
+## Download data using git LFS
+
+When loading with huggingface `load_dataset()` api, no need to do additional data linking. But if you are donwloading data in raw `*.jsonl` format, you need to link proper field for the task. To link the data, use `src_uid` to match row from `problem_descriptions.jsonl` and `unittest_db.json`. 
+
 
 To download the automatic program repair data,
 
 ```
 GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval
 cd xCodeEval
-git lfs pull --include "program_synthesis/*"
+git lfs pull --include "apr/*"
 git lfs pull --include "problem_descriptions.jsonl"
 git lfs pull --include "unittest_db.json"
 ```
 
-## A Sample from train split
+
+
+## A Sample of raw data from train split (without linking)
 ```
 {
     "similarity_score": 0.6323809523809524,
@@ -39,7 +70,7 @@ git lfs pull --include "unittest_db.json"
 }
 ```
 
-## A Sample from validation/test split
+## A Sample of raw data from validation/test split (without linking)
 
 ```
 {
@@ -67,12 +98,12 @@ git lfs pull --include "unittest_db.json"
 
 ## Key Definitions
 
-1. `similarity_score`: A similarity score between `bug_source_code` and `fix_source_code` given by difflib.
-2. `equal_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
-3. `replace_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
-4. `delete_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
-5. `insert_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
-6. `fix_ops_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by difflib.
+1. `similarity_score`: A similarity score between `bug_source_code` and `fix_source_code` given by `difflib`.
+2. `equal_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by `difflib`.
+3. `replace_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by `difflib`.
+4. `delete_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by `difflib`.
+5. `insert_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by `difflib`.
+6. `fix_ops_cnt`: A metric comparing `bug_source_code` and `fix_source_code`. Recommended by `difflib`.
 7. `bug_source_code`: Buggy code.
 8. `fix_source_code`: A potential fix of the buggy code that passed all the unit tests.
 9. `lang`: Runtime/Compiler version of the `source_code`.
@@ -96,7 +127,7 @@ cd xCodeEval/
 tar c apr | md5sum
 ```
 
-Output should match, `293fd4712456a981afd1a8db1ec93d5e`.
+Output should match, `5cba33fa21d64cf3ba190744ab49f0da`.
 
 
 ## Tree
