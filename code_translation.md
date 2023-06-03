@@ -1,5 +1,36 @@
 # Code Translation Task
 
+## Download data using huggingface `load_dataset()`
+
+```
+>>> import datasets
+>>> code_translation_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "code_translation")
+>>> print(code_translation_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['prob_desc_memory_limit', 'prob_desc_sample_inputs', 'prob_desc_output_spec', 'file_name', 'code_uid', 'lang_cluster', 'prob_desc_sample_outputs', 'prob_desc_description', 'prob_desc_output_to', 'lang', 'prob_desc_notes', 'prob_desc_created_at', 'source_code', 'exec_outcome', 'prob_desc_input_from', 'difficulty', 'src_uid', 'prob_desc_input_spec', 'prob_desc_time_limit', 'hidden_unit_tests'],
+        num_rows: 5538841
+    })
+    validation: Dataset({
+        features: ['prob_desc_memory_limit', 'prob_desc_sample_inputs', 'prob_desc_output_spec', 'file_name', 'code_uid', 'lang_cluster', 'prob_desc_sample_outputs', 'prob_desc_description', 'prob_desc_output_to', 'lang', 'prob_desc_notes', 'prob_desc_created_at', 'source_code', 'exec_outcome', 'prob_desc_input_from', 'difficulty', 'src_uid', 'prob_desc_input_spec', 'prob_desc_time_limit', 'hidden_unit_tests'],
+        num_rows: 7034
+    })
+    test: Dataset({
+        features: ['prob_desc_memory_limit', 'prob_desc_sample_inputs', 'prob_desc_output_spec', 'file_name', 'code_uid', 'lang_cluster', 'prob_desc_sample_outputs', 'prob_desc_description', 'prob_desc_output_to', 'lang', 'prob_desc_notes', 'prob_desc_created_at', 'source_code', 'exec_outcome', 'prob_desc_input_from', 'difficulty', 'src_uid', 'prob_desc_input_spec', 'prob_desc_time_limit', 'hidden_unit_tests'],
+        num_rows: 20356
+    })
+    validation_small: Dataset({
+        features: ['prob_desc_memory_limit', 'prob_desc_sample_inputs', 'prob_desc_output_spec', 'file_name', 'code_uid', 'lang_cluster', 'prob_desc_sample_outputs', 'prob_desc_description', 'prob_desc_output_to', 'lang', 'prob_desc_notes', 'prob_desc_created_at', 'source_code', 'exec_outcome', 'prob_desc_input_from', 'difficulty', 'src_uid', 'prob_desc_input_spec', 'prob_desc_time_limit', 'hidden_unit_tests'],
+        num_rows: 440
+    })
+})
+```	
+			
+## Download data using git LFS
+
+When loading with huggingface `load_dataset()` api, no need to do additional data linking. But if you are donwloading data in raw `*.jsonl` format, you need to link proper field for the task. To link the data, use `src_uid` to match row from `problem_descriptions.jsonl` and `unittest_db.json`. 
+
 To download the code translation data,
 
 ```
@@ -37,6 +68,27 @@ git lfs pull --include "unittest_db.json"
 4. `src_uid`: A specific identifier that shows which problem the code is associated with. This identifier is **important** for the training of the model. The problem referred to by the `src_uid` provides a natural description of the problem that the code successfully solved. Refer to [Structure of `problem_descriptions.jsonl`](./README.md#structure-of-problem_descriptionsjsonl)
 5. `difficulty`: Difficulty rating of the problem indicated by `src_uid`. The higher the harder.  
 6. `exec_outcome`: Execution outcome status. Follow [Section 4.1](https://arxiv.org/pdf/2303.03004.pdf) to know the potential list of outcomes. The `exec_outcome` flags in the training data comes from a pre-run environmeent. However, training data doesn't  includes unit-test to avoid potential hacks. We provide unit test for only dev and test data.  
+7. `lang_cluster`: A generic programming language name the value of `lang` belongs to.
+
+The following keys will come from `problem_descriptions.jsonl` by matching `src_uid`,
+            
+8. `prob_desc_description`: Problem description in textual format, math operations are written in latex.
+9. `prob_desc_input_from`: How the program should take the unit test.
+10. `prob_desc_output_to`: Where the program should output the result of the unit test.
+11. `prob_desc_time_limit`: Time limit to solve the problem. 
+12. `prob_desc_memory_limit`: Memory limit to solve the problem.
+13. `prob_desc_input_spec`: How and in what order the input will be given to the program? It also includes the date range, types, and sizes.
+14. `prob_desc_output_spec`: How the outputs should be printed. Most of the time the unit test results are matched with an *exact string match* or *floating point comparison* with a precision boundary. 
+15. `prob_desc_sample_inputs`: A sample input for the code that is expected to solve the problem described in `description`.
+16. `prob_desc_sample_outputs`: The expected output for the `sample_input` that is expected to solve the problem described in `description`.
+17. `prob_desc_notes`: Explanation of `sample_inputs` & `sample_outputs`.
+18. `prob_desc_created_at`: The Unix timestamp when the problem was released. Use `datetime` lib in Python to parse it to a human-readable format.
+
+source information will come from the name of the `*.jsonl` file name. 
+19. `file_name`: Name of the source jsonl file from where data is loaded.
+
+Unit test information will come from `unittest_db.json` by matching `src_uid`.
+20. `hidden_unit_tests`: a list of unit tests returned as string. use `json.loads(hidden_unit_tests)` to load the data.
 
 ## Definition of parallelism
 
@@ -52,7 +104,7 @@ cd xCodeEval/
 tar c code_translation | md5sum
 ```
 
-Output should match, `801a19dd92e8e9a201ad12942ec4a77e`.
+Output should match, `a6e72db3f75d9d8fc3d11f7f597c7824`.
 
 
 ## Tree
