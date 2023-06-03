@@ -1,5 +1,57 @@
 # Code Retrieval
 
+## Download data using huggingface `load_dataset()`
+
+```
+>>> import datasets
+>>> retrieval_code_code_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_code_code")
+>>> print(retrieval_code_code_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['negative_code', 'positive_code', 'source_code', 'file_name', 'src_uid'],
+        num_rows: 50706
+    })
+    validation: Dataset({
+        features: ['negative_code', 'positive_code', 'source_code', 'file_name', 'src_uid'],
+        num_rows: 2535
+    })
+    test: Dataset({
+        features: ['negative_code', 'positive_code', 'source_code', 'file_name', 'src_uid'],
+        num_rows: 10044
+    })
+})
+
+>>> retrieval_nl_code_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_nl_code")
+>>> print(retrieval_nl_code_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['positive_code', 'negative_code', 'file_name', 'nl', 'src_uid'],
+        num_rows: 61898
+    })
+    validation: Dataset({
+        features: ['positive_code', 'negative_code', 'file_name', 'nl', 'src_uid'],
+        num_rows: 2900
+    })
+    test: Dataset({
+        features: ['positive_code', 'negative_code', 'file_name', 'nl', 'src_uid'],
+        num_rows: 11701
+    })
+})
+
+>>> retrieval_corpus_code_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_corpus")
+>>> print(retrieval_corpus_code_dataset)
+
+DatasetDict({
+    test: Dataset({
+        features: ['file_name', 'source_code', 'idx'],
+        num_rows: 25043700
+    })
+})
+```
+
+
 To download the retrieval data,
 
 ```
@@ -67,14 +119,14 @@ cd xCodeEval/
 tar c retrieval_nl_code | md5sum
 ```
 
-Output should match, `61fc16d42107ed1cc8adeca1d8735093`.
+Output should match, `cb8ca5339df596db1acebac5dd05f4b7`.
 
 ```
 cd xCodeEval/
 tar c retrieval_code_code | md5sum
 ```
 
-Output should match, `4ba132651e4c5c19003a54c35f3b228a`.
+Output should match, `3c4211ece767d513b8fa6b62e51fe962`.
 
 
 ## Tree

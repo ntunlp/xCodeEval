@@ -1,5 +1,29 @@
 # Tag Classification Task
 
+## Download data using huggingface `load_dataset()`
+
+```
+>>> import datasets
+>>> tag_classification_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "tag_classification")
+>>> print(tag_classification_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['src_uid', 'file_name', 'lang_cluster', 'lang', 'source_code', 'prob_desc_output_spec', 'prob_desc_sample_outputs', 'prob_desc_output_to', 'prob_desc_input_spec', 'prob_desc_memory_limit', 'prob_desc_description', 'prob_desc_time_limit', 'prob_desc_created_at', 'prob_desc_input_from', 'code_uid', 'prob_desc_sample_inputs', 'tags', 'prob_desc_notes', 'difficulty'],
+        num_rows: 5494008
+    })
+    validation: Dataset({
+        features: ['src_uid', 'file_name', 'lang_cluster', 'lang', 'source_code', 'prob_desc_output_spec', 'prob_desc_sample_outputs', 'prob_desc_output_to', 'prob_desc_input_spec', 'prob_desc_memory_limit', 'prob_desc_description', 'prob_desc_time_limit', 'prob_desc_created_at', 'prob_desc_input_from', 'code_uid', 'prob_desc_sample_inputs', 'tags', 'prob_desc_notes', 'difficulty'],
+        num_rows: 18696
+    })
+    test: Dataset({
+        features: ['src_uid', 'file_name', 'lang_cluster', 'lang', 'source_code', 'prob_desc_output_spec', 'prob_desc_sample_outputs', 'prob_desc_output_to', 'prob_desc_input_spec', 'prob_desc_memory_limit', 'prob_desc_description', 'prob_desc_time_limit', 'prob_desc_created_at', 'prob_desc_input_from', 'code_uid', 'prob_desc_sample_inputs', 'tags', 'prob_desc_notes', 'difficulty'],
+        num_rows: 74733
+    })
+})
+```
+
+
 To download the tag classification data,
 
 ```
@@ -48,7 +72,7 @@ cd xCodeEval/
 tar c tag_classification | md5sum
 ```
 
-Output should match, `dab9c6ef6530a36319b8a8023192ce62`.
+Output should match, `610645116e29db3771e11a890a435699`.
 
 
 ## Tree

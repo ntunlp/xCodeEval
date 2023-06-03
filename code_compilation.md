@@ -1,5 +1,28 @@
 # Code Compilation Task
 
+## Download data using huggingface `load_dataset()`
+
+```
+>>> import datasets
+>>> code_compilation_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "code_compilation")
+>>> print(code_compilation_dataset)
+
+DatasetDict({
+    train: Dataset({
+        features: ['lang_cluster', 'source_code', 'file_name', 'compilation_error', 'difficulty', 'src_uid', 'code_uid', 'lang'],
+        num_rows: 19915150
+    })
+    validation: Dataset({
+        features: ['lang_cluster', 'source_code', 'file_name', 'compilation_error', 'difficulty', 'src_uid', 'code_uid', 'lang'],
+        num_rows: 6394
+    })
+    test: Dataset({
+        features: ['lang_cluster', 'source_code', 'file_name', 'compilation_error', 'difficulty', 'src_uid', 'code_uid', 'lang'],
+        num_rows: 30388
+    })
+})
+```
+
 To download the code_compilation data,
 
 ```
@@ -21,7 +44,7 @@ Note that `code_compilation` data is extremely large. Feel free to download a su
     "compilation_error": false,
     "code_uid": "c6afb1328299497e14ac949dbe60d038",
     "src_uid": "5f4009d4065f5ad39e662095f8f5c068",
-    "difficulty": 1900
+    "difficulty": 1900,
 }
 ```
  
