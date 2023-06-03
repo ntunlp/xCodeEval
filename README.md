@@ -9,11 +9,27 @@ This repository contains the sample code and data link for xCodeEval [paper](htt
 
 # Data Download
 
-Data is uploaded as a git LFS repo in huggingface. 
+Currently this repository supports huggingface [`load_dataset()`](https://huggingface.co/docs/datasets/v1.11.0/package_reference/loading_methods.html#datasets.load_dataset) api. Follow the following example to load dataset for individual examples. 
 
-![xCodeEval_hf](xcodeeval-hf.png)
+```
+import datasets
 
-You can download the full data using the following command. To Download the full dataset, 
+prog_synthesis_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "program_synthesis")
+code_translation_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "code_translation")
+tag_classification_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "tag_classification")
+apr_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "apr")
+pcode_compilation_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "code_compilation")
+retrieval_code_code_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_code_code")
+retrieval_nl_code_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_nl_code")
+retrieval_corpus_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrieval_corpus")
+
+```
+
+Data can be also downloaded as a git LFS repo from huggingface. 
+
+![xCodeEval_hf](https://github.com/ntunlp/xCodeEval/blob/main/xcodeeval-hf.png?raw=true)
+
+You can download the full data using the following command.
 
 ```
 GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval
@@ -28,9 +44,6 @@ GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/NTU-NLP-sg/xCode
 cd xCodeEval
 git lfs pull --include "apr/test/*"
 ```
-
-**NOTE**: Currently we don't support huggingface `load_dataset()` module. At this moment use `git lfs` to download the data.
-
 
 We propose 7 Tasks.
 
