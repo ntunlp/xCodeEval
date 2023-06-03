@@ -11,7 +11,7 @@ This repository contains the sample code and data link for xCodeEval [paper](htt
 
 Data is uploaded as a git LFS repo in huggingface. 
 
-![xCodeEval_hf](xcodeeval.png)
+![xCodeEval_hf](xcodeeval-hf.png)
 
 You can download the full data using the following command. To Download the full dataset, 
 
