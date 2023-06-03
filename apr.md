@@ -9,15 +9,15 @@
 
 DatasetDict({
     train: Dataset({
-        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        features: ['fix_source_code', 'prob_desc_memory_limit', 'bug_source_code', 'similarity_score', 'difficulty', 'prob_desc_input_from', 'prob_desc_output_to', 'prob_desc_description', 'equal_cnt', 'lang', 'fix_code_uid', 'bug_exec_outcome', 'prob_desc_sample_inputs', 'bug_code_uid', 'prob_desc_output_spec', 'prob_desc_input_spec', 'insert_cnt', 'replace_cnt', 'prob_desc_created_at', 'fix_ops_cnt', 'prob_desc_time_limit', 'lang_cluster', 'delete_cnt', 'potential_dominant_fix_op', 'src_uid', 'prob_desc_sample_outputs', 'apr_id', 'tags', 'file_name', 'prob_desc_notes', 'fix_exec_outcome', 'hidden_unit_tests'],
         num_rows: 4672070
     })
     validation: Dataset({
-        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        features: ['fix_source_code', 'prob_desc_memory_limit', 'bug_source_code', 'similarity_score', 'difficulty', 'prob_desc_input_from', 'prob_desc_output_to', 'prob_desc_description', 'equal_cnt', 'lang', 'fix_code_uid', 'bug_exec_outcome', 'prob_desc_sample_inputs', 'bug_code_uid', 'prob_desc_output_spec', 'prob_desc_input_spec', 'insert_cnt', 'replace_cnt', 'prob_desc_created_at', 'fix_ops_cnt', 'prob_desc_time_limit', 'lang_cluster', 'delete_cnt', 'potential_dominant_fix_op', 'src_uid', 'prob_desc_sample_outputs', 'apr_id', 'tags', 'file_name', 'prob_desc_notes', 'fix_exec_outcome', 'hidden_unit_tests'],
         num_rows: 5068
     })
     test: Dataset({
-        features: ['prob_desc_output_spec', 'prob_desc_sample_outputs', 'fix_exec_outcome', 'prob_desc_sample_inputs', 'similarity_score', 'prob_desc_memory_limit', 'difficulty', 'lang', 'apr_id', 'tags', 'potential_dominant_fix_op', 'prob_desc_output_to', 'prob_desc_input_from', 'src_uid', 'bug_exec_outcome', 'lang_cluster', 'prob_desc_input_spec', 'fix_source_code', 'delete_cnt', 'prob_desc_time_limit', 'bug_code_uid', 'file_name', 'prob_desc_created_at', 'fix_ops_cnt', 'fix_code_uid', 'prob_desc_notes', 'equal_cnt', 'bug_source_code', 'prob_desc_description', 'replace_cnt', 'hidden_unit_test'],
+        features: ['fix_source_code', 'prob_desc_memory_limit', 'bug_source_code', 'similarity_score', 'difficulty', 'prob_desc_input_from', 'prob_desc_output_to', 'prob_desc_description', 'equal_cnt', 'lang', 'fix_code_uid', 'bug_exec_outcome', 'prob_desc_sample_inputs', 'bug_code_uid', 'prob_desc_output_spec', 'prob_desc_input_spec', 'insert_cnt', 'replace_cnt', 'prob_desc_created_at', 'fix_ops_cnt', 'prob_desc_time_limit', 'lang_cluster', 'delete_cnt', 'potential_dominant_fix_op', 'src_uid', 'prob_desc_sample_outputs', 'apr_id', 'tags', 'file_name', 'prob_desc_notes', 'fix_exec_outcome', 'hidden_unit_tests'],
         num_rows: 17699
     })
 })
@@ -41,7 +41,7 @@ git lfs pull --include "unittest_db.json"
 
 
 
-## A Sample of raw data from train split (without linking)
+## A data from train split
 ```
 {
     "similarity_score": 0.6323809523809524,
@@ -70,7 +70,7 @@ git lfs pull --include "unittest_db.json"
 }
 ```
 
-## A Sample of raw data from validation/test split (without linking)
+## A Sample data from validation/test split
 
 ```
 {
@@ -117,6 +117,26 @@ git lfs pull --include "unittest_db.json"
 17. `fix_exec_outcome`: A pre-run execution outcome of `fix_source_code`. Follow [Section 4.1](https://arxiv.org/pdf/2303.03004.pdf) to know the potential list of outcomes. The `exec_outcome` flags in the training data comes from a pre-run environmeent. However, training data doesn't  includes unit-test to avoid potential hacks. We provide unit test for only dev and test data.   
 18. `potential_dominant_fix_op`: A potential fix op recommended by difflib.
 19. `lang_cluster`: A generic programming language name the value of `lang` belongs to.
+
+The following keys will come from `problem_descriptions.jsonl` by matching `src_uid`,
+            
+20. `prob_desc_description`: Problem description in textual format, math operations are written in latex.
+21. `prob_desc_input_from`: How the program should take the unit test.
+22. `prob_desc_output_to`: Where the program should output the result of the unit test.
+23. `prob_desc_time_limit`: Time limit to solve the problem. 
+24. `prob_desc_memory_limit`: Memory limit to solve the problem.
+25. `prob_desc_input_spec`: How and in what order the input will be given to the program? It also includes the date range, types, and sizes.
+26. `prob_desc_output_spec`: How the outputs should be printed. Most of the time the unit test results are matched with an *exact string match* or *floating point comparison* with a precision boundary. 
+27. `prob_desc_sample_inputs`: A sample input for the code that is expected to solve the problem described in `description`.
+28. `prob_desc_sample_outputs`: The expected output for the `sample_input` that is expected to solve the problem described in `description`.
+29. `prob_desc_notes`: Explanation of `sample_inputs` & `sample_outputs`.
+30. `prob_desc_created_at`: The Unix timestamp when the problem was released. Use `datetime` lib in Python to parse it to a human-readable format.
+
+source information will come from the name of the `*.jsonl` file name. 
+31. `file_name`: Name of the source jsonl file from where data is loaded.
+
+Unit test information will come from `unittest_db.json` by matching `src_uid`.
+32. `hidden_unit_tests`: a list of unit tests returned as string. use `json.loads(hidden_unit_tests)` to load the data.
 
 ## MD5 hash of the data
 
