@@ -158,6 +158,10 @@ unittest_db = {
 2. `input`: Input of the unit test.
 3. `output`: List of expected outputs for the unit test. 
 
+# License
+
+This repository is under [MIT](https://github.com/ntunlp/xCodeEval/blob/main/LICENSE) license. But the data is distributes through [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) license.
+
 # Citation
 
 ```
