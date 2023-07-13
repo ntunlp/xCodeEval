@@ -1,11 +1,18 @@
 # xCodeEval
 [xCodeEval: A Large Scale Multilingual Multitask Benchmark for Code Understanding, Generation, Translation and Retrieval](https://arxiv.org/abs/2303.03004)
 
+# Update:
+- July 13, 2023: StarEncode retrieval model released. [Follow it here](#additional-resources)
+- Jul 6, 2023: [ExecEval](https://github.com/ntunlp/ExecEval) has been updated with changes for java, kotlin, go. Please `git pull`, `docker build`, `docker run` for latest updates.
+
+
 We introduce **xCodeEval**, the largest executable multilingual multitask benchmark to date consisting of 25 M document-level coding examples from about 7.5K unique problems covering up to 17 programming languages with execution-level parallelism. It features a total of seven tasks involving code understanding, generation, translation and retrieval, and it employs an execution-based evaluation. We develop a test-case based multilingual code execution engine, [**ExecEval**](https://github.com/ntunlp/ExecEval) that supports all the programming languages in **xCodeEval**. We also propose a novel data splitting and a data selection schema for balancing data distributions over multiple attributes based on geometric mean and graph-theoretic principle. 
 
 This repository contains the sample code and data link for xCodeEval [paper](https://arxiv.org/abs/2303.03004).
 
 # Data Download
+
+[Huggingface-dataset](https://huggingface.co/datasets/NTU-NLP-sg/xCodeEval)
 
 Currently this repository supports huggingface [`load_dataset()`](https://huggingface.co/docs/datasets/v1.11.0/package_reference/loading_methods.html#datasets.load_dataset) api. Follow the following example to load dataset for individual examples. 
 
@@ -24,6 +31,7 @@ retrieval_corpus_dataset = datasets.load_dataset("NTU-NLP-sg/xCodeEval", "retrie
 ```
 
 ## Hf large data download tricks.
+
 
 If you are facing long delay with data processing, add a `ignore_verifications=True`.
 
@@ -157,6 +165,13 @@ unittest_db = {
 1. `unittest_db.json` dict keys i.e., `db884d679d9cfb1dc4bc511f83beedda` are the `src_uid` from `problem_descriptions.jsonl`.
 2. `input`: Input of the unit test.
 3. `output`: List of expected outputs for the unit test. 
+
+
+# Additional Resources
+
+1. **nl-code**: [NTU-NLP-sg/xCodeEval-nl-code-starencoder-ckpt-37](https://huggingface.co/NTU-NLP-sg/xCodeEval-nl-code-starencoder-ckpt-37)
+2. **code-code**: [NTU-NLP-sg/xCodeEval-code-code-starencoder-ckpt-37](https://huggingface.co/NTU-NLP-sg/xCodeEval-code-code-starencoder-ckpt-37)
+
 
 # License
 
